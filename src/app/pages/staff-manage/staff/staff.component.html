@@ -1,0 +1,21 @@
+<div>
+  <app-multi-search style="width:100%;" [SearchItem]="multiSearch" (onSearch)="onSearch($event)"></app-multi-search>
+
+  <div nz-row [nzGutter]="24" class="pannle-body">
+   <div nz-col [nzSpan]="24">
+      <nz-card [nzLoading]="loading">
+        <ng-template #title>
+          
+        </ng-template>
+        <ng-template #extra>
+          <button nz-button [nzType]="'primary'">
+            <a [routerLink]="['/pages/staff-manage/addstaff']"><i class="anticon anticon-plus-circle-o"></i><span>{{'staff.button.add'|translate}}</span></a>
+          </button>
+        </ng-template>
+        <ng-template #body>
+          <app-zpy-table [DataSource]="tableParams"></app-zpy-table>
+        </ng-template>
+      </nz-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+{
+    "login": {
+        "title": "login pannle",
+        "invalid": {
+            "modal":{
+                "title":"invalid",
+                "content":"The username cipher can not be empty"
+            },
+            "username":"Please input your username!",
+            "password":"Please input your Password!"
+        },
+        "remember":"Remember me",
+        "forgot":"Forgot password",
+        "regist":"register",
+        "loginbtn":"Log in"
+    },
+    "regist":{
+        "title": "regist",
+        "email":"E-mail",
+        "password":"Password",
+        "confirm_password":"Confirm Password",
+        "userName":"Name",
+        "phoneNumber":"Phone Number",
+        "captcha":"Captcha",
+        "agrementPrompt":"I have read the",
+        "agrementLink":"agrement"
+    },
+    "multiSearch":{
+        "title":"multiple search"
+    },
+    "staff":{
+        "title":"staff manage",
+        "button":{
+            "add":"Add"
+        },
+        "addStaff":{
+            "userName":"Real name",
+            "account":"Account",
+            "gender":"Gender",
+            "avatar":"avatar",
+            "email":"E-Mail",
+            "mobile":"Mobile",
+            "emergencyContacterMobile":"Emergency Contacter mobile number",
+            "department":"Department",
+            "position":"Position",
+            "leader":"Leader",
+            "birthday":"Birthday",
+            "identityId":"ID",
+            "identityFront":"Front",
+            "identityBack":"Back",
+            "address":"address"
+        }
+    },
+    "department":{
+        "title":"department management",
+        "button":{
+            "add":"Add"
+        }
+    },
+    "form":{
+        "name":"name",
+        "mobile":"mobile number",
+        "position":"position",
+        "search":"search",
+        "operation":"operation"
+    }
+}
+  

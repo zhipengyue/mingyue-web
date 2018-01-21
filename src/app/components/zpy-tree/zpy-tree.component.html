@@ -1,0 +1,36 @@
+<div class="zpy-tree-container">
+<ul class="zpy-tree">
+  <li *ngFor="let item of DATA;let i=index">
+    <div class="item" [ngClass]="{'item-first':(i==0),'item-last':(i==DATA.length-1),'item-open':item.open&&item.children&&item.children.length>0}">
+      <i class="anticon anticon-right" *ngIf="!(item.open&&item.children&&item.children.length>0&&item.open)"  (click)="item.open=!item.open"></i>
+      <i class="anticon anticon-down" *ngIf="item.open&&item.children&&item.children.length>0&&item.open"  (click)="item.open=!item.open"></i>
+      {{item.name}} 
+      <span style="margin-left:30px;">负责人:张军/员工数量:100</span>
+      <div class="btngroup">
+          <button nz-button [nzType]="'dashed'" [nzSize]="'small'" (click)="edit($event,DATA,item)">
+              <i class="anticon anticon-edit"></i>
+              <span>编辑</span>
+          </button>
+          <button nz-button [nzType]="'dashed'" [nzSize]="'small'" (click)="add($event,DATA,item)">
+              <i class="anticon anticon-plus"></i>
+              <span>新增</span>
+          </button>
+          <button nz-button [nzType]="'dashed'" [nzSize]="'small'" (click)="delete($event,DATA,item)">
+              <i class="anticon anticon-delete"></i>
+              <span>删除</span>
+          </button>
+          
+      </div>
+      <div class="bg">
+
+      </div>
+    </div>
+    <app-zpy-tree *ngIf="item.children&&item.children.length>0&&item.open" [DATA]="item.children" (onEdit)="treeEdit($event)" (onAdd)="treeAdd($event)" (onDelete)="treeDelete($event)"></app-zpy-tree>
+  </li>
+</ul>
+</div>
+<!-- <nz-collapseset>
+  <nz-collapse *ngFor="let item of DATA" [nzTitle]="item.name">
+      <app-zpy-tree [DATA]="item.children"></app-zpy-tree>
+  </nz-collapse>
+</nz-collapseset> -->

@@ -1,0 +1,30 @@
+<nz-card class="zpy-edit">
+    <ng-template #title>
+      {{Data.title}}
+    </ng-template>
+    <ng-template #extra>
+      <a (click)="closeEvent($event)"><i class="anticon anticon-close"></i></a>
+    </ng-template>
+    <ng-template #body>
+        <div nz-row class="row">
+          <div nz-col [nzSpan]="8">
+            部门名称
+          </div>
+          <div nz-col [nzSpan]="16">
+              <nz-input [(ngModel)]="Data.departmentName" [nzPlaceHolder]="'Basic usage'"></nz-input>
+          </div>
+        </div>
+        <div nz-row class="row">
+            <div nz-col [nzSpan]="8">
+              部门负责人
+            </div>
+            <div nz-col [nzSpan]="16">
+                <nz-input [(ngModel)]="Data.director" [nzPlaceHolder]="'Basic usage'"></nz-input>
+            </div>
+          </div>
+        <button nz-button [nzType]="'primary'" style="margin-top:10px;width:100%;" (click)="Data.submit()">
+            <span>确定</span>
+        </button>
+    </ng-template>
+    
+  </nz-card>

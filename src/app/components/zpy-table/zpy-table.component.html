@@ -1,0 +1,25 @@
+<nz-table #nzTable nzShowSizeChanger [nzDataSource]="_dataSet" [nzPageSize]="pageSize" (nzDataChange)="_displayDataChange($event)" (nzPageIndexChange)="_refreshStatus()" (nzPageSizeChange)="_refreshStatus()">
+  <thead nz-thead>
+    <tr>
+      <th nz-th nzCheckbox>
+        <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)">
+        </label>
+      </th>
+      <th nz-th *ngFor="let th of DataSource.thead"><span>{{th.label}}</span></th><th>{{'form.operation'|translate}}</th>
+    </tr>
+  </thead>
+  <tbody nz-tbody>
+    <tr nz-tbody-tr *ngFor="let data of DataSource.datasource">
+      <td nz-td nzCheckbox>
+        <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event)">
+        </label>
+      </td>
+      <td nz-td *ngFor="let th of DataSource.thead">{{data[th.key]}}</td>
+      <td>
+        <button nz-button class="operation_btn" *ngFor="let btn of DataSource.btns" [nzType]="getInputType(btn.type)[1]">
+          <span>{{btn.label}}</span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

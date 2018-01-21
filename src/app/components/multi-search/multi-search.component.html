@@ -1,0 +1,22 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="24">
+    <nz-card>
+      <ng-template #title>
+        <span>{{SearchItem.title | translate}}</span>
+      </ng-template>
+      <ng-template #extra>
+        <button nz-button [nzType]="'primary'" (click)="searchEvent($event)">
+          <i class="anticon anticon-search"></i><span>{{'form.search'|translate}}</span>
+        </button>
+      </ng-template>
+      <ng-template #body>
+        <div nz-row>
+          <div nz-col [nzSpan]="6" *ngFor="let item of SearchItem.items">
+            <app-zpy-input [item]="item"></app-zpy-input>
+          </div>
+        </div>
+      </ng-template>
+
+    </nz-card>
+  </div>
+</div>

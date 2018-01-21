@@ -1,0 +1,22 @@
+<div nz-row>
+  <div nz-col [nzSpan]="8" class="labelContainer">
+    <label class="label">{{item.label | translate}}</label>
+  </div>
+  <div nz-col [nzSpan]="16">
+    <nz-input *ngIf="getInputType(item.type)[0]==='input'&&(getInputType(item.type)[1]==='text'||getInputType(item.type)[1]==='mobile')" [(ngModel)]="item[item.value]" [nzPlaceHolder]="item.placehoder | translate" [nzSize]="'large'"></nz-input>
+    <nz-input-number style="width:100%;" *ngIf="getInputType(item.type)[0]==='input'&&getInputType(item.type)[1]==='number'" [(ngModel)]="item[item.value]" [nzPlaceHolder]="item.placehoder | translate" [nzSize]="'large'" [nzStep]="1"></nz-input-number>
+    <nz-select *ngIf="item.type==='select'"
+    style="width: 100%;"
+    nzAllowClear
+    [nzPlaceHolder]="item.placehoder | translate"
+    [(ngModel)]="item[item.value]"
+    nzShowSearch>
+    <nz-option
+      *ngFor="let option of item.datasource"
+      [nzLabel]="option.label"
+      [nzValue]="option.value"
+      [nzDisabled]="option.disabled">
+    </nz-option>
+  </nz-select>
+  </div>
+</div>
