@@ -4,7 +4,7 @@
     <div class="item" [ngClass]="{'item-first':(i==0),'item-last':(i==DATA.length-1),'item-open':item.open&&item.children&&item.children.length>0}">
       <i class="anticon anticon-right" *ngIf="!(item.open&&item.children&&item.children.length>0&&item.open)"  (click)="item.open=!item.open"></i>
       <i class="anticon anticon-down" *ngIf="item.open&&item.children&&item.children.length>0&&item.open"  (click)="item.open=!item.open"></i>
-      {{item.name}} 
+      {{item.departmentName}} 
       <span style="margin-left:30px;">负责人:张军/员工数量:100</span>
       <div class="btngroup">
           <button nz-button [nzType]="'dashed'" [nzSize]="'small'" (click)="edit($event,DATA,item)">

@@ -77,7 +77,7 @@
                 <nz-input [nzSize]="'large'" formControlName="captcha" [nzId]="'captcha'"></nz-input>
               </div>
               <div nz-col [nzSpan]="12">
-                <img src="{{captcha?.image}}" width="100%" alt="" srcset="">
+                <img src="{{captcha.image}}" width="100%" alt="" srcset="">
               </div>
               <div nz-col [nzSpan]="4">
                 <button nz-button [nzSize]="'large'" (click)="getCaptcha($event)"><i class="anticon anticon-sync"></i></button>

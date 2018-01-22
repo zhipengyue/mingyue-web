@@ -5,7 +5,7 @@ import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class RequestService {
-  public path:string='';
+  public path:string='http://127.0.0.1:7001/';
   constructor(protected http:Http) {
 
   }

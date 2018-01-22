@@ -4,6 +4,7 @@ import { MultiSearchComponent } from '../../../components/multi-search/multi-sea
 import { TranslateService } from '@ngx-translate/core';
 import {EditComponent} from './edit/edit.component'
 import { NzModalService } from 'ng-zorro-antd';
+import { DepartmentAndPositionService } from '../department-and-position.service'
 @Component({
   selector: 'app-department',
   templateUrl: './department.component.html',
@@ -13,34 +14,40 @@ import { NzModalService } from 'ng-zorro-antd';
 export class DepartmentComponent implements OnInit {
   public zpyData:any={};
   public departmentsData:any=[
-    {
-      name:'技术部',children:[
-        {name:'开发部',children:[
-          {name:'前端组',children:[]},
-          {name:'后端组',children:[]}
-        ]},
-        {name:'测试部',children:[
-          {name:'python'},
-          {name:'nodejs'}
-        ]},
-        {name:'运维',children:[]},
-        {name:'IT',children:[]}
-      ]
-    },
-    {
-      name:'运营',children:[
-        {name:'推广',children:[]},
-        {name:'编辑',children:[]}
-      ]
-    }
+    // {
+    //   name:'技术部',children:[
+    //     {name:'开发部',children:[
+    //       {name:'前端组',children:[]},
+    //       {name:'后端组',children:[]}
+    //     ]},
+    //     {name:'测试部',children:[
+    //       {name:'python'},
+    //       {name:'nodejs'}
+    //     ]},
+    //     {name:'运维',children:[]},
+    //     {name:'IT',children:[]}
+    //   ]
+    // },
+    // {
+    //   name:'运营',children:[
+    //     {name:'推广',children:[]},
+    //     {name:'编辑',children:[]}
+    //   ]
+    // }
   ]
   public isEditOpen:boolean=false;
   constructor(
     public translate:TranslateService,
-    private confirmServ:NzModalService
+    private confirmServ:NzModalService,
+    private departmentService:DepartmentAndPositionService
   ) { }
 
   ngOnInit() {
+    this.departmentService.departmentsGetAll().then((res)=>{
+      if (res.status === 200) {
+        this.departmentsData=res.data;
+      }
+    })
   }
   treeEdit(event){
     console.log(event);
@@ -67,9 +74,14 @@ export class DepartmentComponent implements OnInit {
       submit:()=>{
         if(this.zpyData.departmentName!==''){
           console.log(event)
-          this.departmentsData.push({
-            name:this.zpyData.departmentName,
-            children:[]
+          // this.departmentsData.push({
+          //   name:this.zpyData.departmentName,
+          //   children:[]
+          // })
+          this.departmentService.departmentAdd({departmentName:this.zpyData.departmentName}).then((res)=>{
+            console.log(res);
+          },(err)=>{
+            console.log(err)
           })
         }
         this.closeEdit(null);

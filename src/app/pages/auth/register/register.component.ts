@@ -101,7 +101,7 @@ export class RegisterComponent implements OnInit {
   getCaptcha(e: MouseEvent=null) {
     if(e) e.preventDefault();
     this.authService.getCaptcha().then(res=>{
-      this.captcha = JSON.parse(res._body);
+      this.captcha = res;
     },error=>{
 
     })
