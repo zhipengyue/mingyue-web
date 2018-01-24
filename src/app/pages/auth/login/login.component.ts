@@ -50,7 +50,10 @@ export class LoginComponent implements OnInit {
     if(!invalide){
       //submit
       let data=JSON.parse(JSON.stringify(this.validateForm.value));
-      data.password=md5(data.password,this.authService.getMd5Key());
+      console.log(md5)
+      let key=this.authService.getMd5Key()
+      let password=md5(data.password,key);
+      data.password=password;
       delete data.remember;
       //staff-manage
       this.authService.login(data).then(res=>{

@@ -49,7 +49,9 @@ export class DepartmentComponent implements OnInit {
   getList(){
     this.departmentService.departmentsGetAll().then((res)=>{
       if (res.status === 200) {
-        this.departmentsData=res.data;
+        // this.departmentsData=res.data;
+        this.departmentsData=this.departmentService.ArrayToTreeData(res.data)
+        console.log(this.departmentsData)
       }
     })
   }
@@ -58,12 +60,21 @@ export class DepartmentComponent implements OnInit {
 
     this.isEditOpen=true;
     this.zpyData={
-      title:'编辑',
-      departmentName:event.item.name,
+      title:this.translate.instant('department.pannle.edit'),
+      departmentName:event.item.departmentName,
       director:'',
       submit:()=>{
         if(this.zpyData.departmentName!==''){
-          event.item.name=this.zpyData.departmentName
+          let item=event.item;
+          item.departmentName=this.zpyData.departmentName;
+          this.departmentService.departmentEdit(item).then((res)=>{
+            if(res.status===200){
+              this.messageService.create('success', this.translate.instant('public.message.add')+this.translate.instant('public.message.success'));
+              this.getList();
+            }
+          },(err)=>{
+            console.log(err)
+          })
         }
         this.closeEdit(null);
       }
@@ -72,14 +83,14 @@ export class DepartmentComponent implements OnInit {
   addRoot(event){
     this.isEditOpen=true;
     this.zpyData={
-      title:'新增',
+      title:this.translate.instant('department.pannle.add'),
       departmentName:'',
       director:'',
       submit:()=>{
         if(this.zpyData.departmentName!==''){
           this.departmentService.departmentAdd({departmentName:this.zpyData.departmentName}).then((res)=>{
             if(res.status===200){
-              this.messageService.create('success', `添加成功`);
+              this.messageService.create('success', this.translate.instant('public.message.add')+this.translate.instant('public.message.success'));
               this.getList();
             }
           },(err)=>{
@@ -93,7 +104,7 @@ export class DepartmentComponent implements OnInit {
   treeAdd(event){
     this.isEditOpen=true;
     this.zpyData={
-      title:'新增',
+      title:this.translate.instant('department.pannle.add'),
       departmentName:'',
       director:'',
       submit:()=>{
@@ -101,7 +112,7 @@ export class DepartmentComponent implements OnInit {
           console.log(event)
           this.departmentService.departmentAdd({parentId:event.item.departmentId,departmentName:this.zpyData.departmentName}).then((res)=>{
             if(res.status===200){
-              this.messageService.create('success', `添加成功`);
+              this.messageService.create('success', this.translate.instant('public.message.add')+this.translate.instant('public.message.success'));
               this.getList();
             }
           },(err)=>{
@@ -114,17 +125,11 @@ export class DepartmentComponent implements OnInit {
   }
   treeDelete(event){
     this.confirmServ.confirm({
-      title: '这是一条警告信息',
-      content: '一些附加信息一些附加信息一些附加信息',
-      okText: '确定',
+      title: '',
+      content: '',
+      okText: '',
       onOk() {
-        console.log(event)
-        for(let i in event.parent){
-          if(event.parent[i].name===event.item.name)
-          {
-            event.parent.splice(i,1);
-          }
-        }
+        
       }
     });
   }

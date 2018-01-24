@@ -55,6 +55,10 @@
         "title":"department management",
         "button":{
             "add":"Add"
+        },
+        "pannle":{
+            "edit":"Edit",
+            "add":"Add"
         }
     },
     "form":{
@@ -63,6 +67,20 @@
         "position":"position",
         "search":"search",
         "operation":"operation"
+    },
+    "public":{
+        "message":{
+            "success":"success",
+            "add":"Add",
+            "edit":"Modify",
+            "failed":"Failed"
+        },
+        "button":{
+            "edit":"Edit",
+            "add":"Add",
+            "delete":"Delete",
+            "submit":"Confirm"
+        }
     }
 }
   

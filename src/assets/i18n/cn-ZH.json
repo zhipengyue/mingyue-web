@@ -56,6 +56,10 @@
         "title":"部门管理",
         "button":{
             "add":"新增部门"
+        },
+        "pannle":{
+            "edit":"编辑",
+            "add":"新增"
         }
     },
     "form":{
@@ -67,5 +71,19 @@
         "position":"职务",
         "search":"搜索",
         "operation":"操作"
+    },
+    "public":{
+        "message":{
+            "success":"成功",
+            "add":"添加",
+            "edit":"修改",
+            "failed":"失败"
+        },
+        "button":{
+            "edit":"编辑",
+            "add":"新增",
+            "delete":"删除",
+            "submit":"确定"
+        }
     }
 }
