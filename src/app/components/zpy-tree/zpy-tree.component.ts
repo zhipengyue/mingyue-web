@@ -21,7 +21,7 @@ export class ZpyTreeComponent implements OnInit {
   }
   add(event,DATA,item){
     event.preventDefault();
-    this.onAdd.emit({parent:DATA,item:item})
+    this.onAdd.emit({item:item})
   }
   delete(event,DATA,item){
     event.preventDefault();

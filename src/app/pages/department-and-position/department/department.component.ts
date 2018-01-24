@@ -3,7 +3,7 @@ import { MultiSearchComponent } from '../../../components/multi-search/multi-sea
 // import { ZpyTreeComponent } from '../../../components/zpy-tree/zpy-tree.component'
 import { TranslateService } from '@ngx-translate/core';
 import {EditComponent} from './edit/edit.component'
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalService,NzMessageService } from 'ng-zorro-antd';
 import { DepartmentAndPositionService } from '../department-and-position.service'
 @Component({
   selector: 'app-department',
@@ -39,10 +39,14 @@ export class DepartmentComponent implements OnInit {
   constructor(
     public translate:TranslateService,
     private confirmServ:NzModalService,
-    private departmentService:DepartmentAndPositionService
+    private departmentService:DepartmentAndPositionService,
+    private messageService:NzMessageService
   ) { }
 
   ngOnInit() {
+    this.getList();
+  }
+  getList(){
     this.departmentService.departmentsGetAll().then((res)=>{
       if (res.status === 200) {
         this.departmentsData=res.data;
@@ -73,13 +77,11 @@ export class DepartmentComponent implements OnInit {
       director:'',
       submit:()=>{
         if(this.zpyData.departmentName!==''){
-          console.log(event)
-          // this.departmentsData.push({
-          //   name:this.zpyData.departmentName,
-          //   children:[]
-          // })
           this.departmentService.departmentAdd({departmentName:this.zpyData.departmentName}).then((res)=>{
-            console.log(res);
+            if(res.status===200){
+              this.messageService.create('success', `添加成功`);
+              this.getList();
+            }
           },(err)=>{
             console.log(err)
           })
@@ -97,13 +99,16 @@ export class DepartmentComponent implements OnInit {
       submit:()=>{
         if(this.zpyData.departmentName!==''){
           console.log(event)
-          event.item.children.push({
-            name:this.zpyData.departmentName,
-            children:[]
+          this.departmentService.departmentAdd({parentId:event.item.departmentId,departmentName:this.zpyData.departmentName}).then((res)=>{
+            if(res.status===200){
+              this.messageService.create('success', `添加成功`);
+              this.getList();
+            }
+          },(err)=>{
+            console.log(err)
           })
-          this.closeEdit(null);
         }
-        
+        this.closeEdit(null);
       }
     }
   }
