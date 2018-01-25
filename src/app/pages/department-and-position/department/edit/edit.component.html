@@ -8,7 +8,7 @@
     <ng-template #body>
         <div nz-row class="row">
           <div nz-col [nzSpan]="8">
-            部门名称
+            {{'department.pannle.departmentName'|translate}}
           </div>
           <div nz-col [nzSpan]="16">
               <nz-input [(ngModel)]="Data.departmentName" [nzPlaceHolder]="'Basic usage'"></nz-input>
@@ -16,14 +16,27 @@
         </div>
         <div nz-row class="row">
             <div nz-col [nzSpan]="8">
-              部门负责人
+              {{'department.pannle.leader'|translate}}
             </div>
             <div nz-col [nzSpan]="16">
-                <nz-input [(ngModel)]="Data.director" [nzPlaceHolder]="'Basic usage'"></nz-input>
+                <!-- <nz-input [(ngModel)]="Data.director" [nzPlaceHolder]="'Basic usage'"></nz-input> -->
+                <nz-select
+                  style="width: 100%"
+                  nzAllowClear
+                  [nzPlaceHolder]="'Select a person'"
+                  [(ngModel)]="userSelect"
+                  nzShowSearch>
+                  <nz-option
+                    *ngFor="let option of userList"
+                    [nzLabel]="option.label"
+                    [nzValue]="option.value"
+                    [nzDisabled]="option.disabled">
+                  </nz-option>
+                </nz-select>
             </div>
           </div>
         <button nz-button [nzType]="'primary'" style="margin-top:10px;width:100%;" (click)="Data.submit()">
-            <span>确定</span>
+            <span>{{'public.button.submit'|translate}}</span>
         </button>
     </ng-template>
     

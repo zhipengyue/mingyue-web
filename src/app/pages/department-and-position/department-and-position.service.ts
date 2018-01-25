@@ -17,6 +17,9 @@ export class DepartmentAndPositionService extends RequestService {
   departmentsGetAll(){
     return this.jsonCall({},this.path+'department/getlist','get')
   }
+  departmentDelete(data){
+    return this.jsonCall(data,this.path+'department/delete','post')
+  }
   ArrayToTreeData(arr){
     let tree=[];
     for(let i=0;i<arr.length;i++){

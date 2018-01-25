@@ -124,14 +124,62 @@ export class DepartmentComponent implements OnInit {
     }
   }
   treeDelete(event){
+    let that=this;
     this.confirmServ.confirm({
-      title: '',
-      content: '',
-      okText: '',
+      title: this.translate.instant('department.warning.title'),
+      content:this.translate.instant('department.warning.content'),
+      okText: this.translate.instant('department.warning.okText'),
       onOk() {
-        
+        console.log(event)
+        // this.departmentService.departmentDelete()
+        let item=event.item;
+        if(item.children&&item.children.length>0){
+          that.isOrNotDeleteTree(event).then(res=>{
+            that.ItemDelete(item);
+          })
+        }else{
+          that.ItemDelete(item);
+        }
       }
     });
+  }
+  ItemDelete(item){
+    let children=this.treeToArray(item)
+    console.log(children)
+    this.departmentService.departmentDelete(children).then(res=>{
+      if(res.status===200){
+        this.messageService.create('success', this.translate.instant('public.message.delete')+this.translate.instant('public.message.success'));
+        this.getList();
+      }
+    },err=>{
+      console.log(err)
+    })
+  }
+  treeToArray(tree){
+    let arr=[]
+    if(tree.children&&tree.children.length>0){
+      for(let i=0;i<tree.children.length;i++){
+        let child=tree.children[i]
+        arr.push(...this.treeToArray(child))
+      }
+    }
+    arr.push(tree)
+    return arr
+  }
+  isOrNotDeleteTree(event){
+    return new Promise((sure,cancel)=>{
+      this.confirmServ.confirm({
+        title: this.translate.instant('department.warning.title'),
+        content:this.translate.instant('department.warning.deleteTree'),
+        okText: this.translate.instant('department.warning.okText'),
+        onOk() {
+          sure();
+        },
+        onCancel() {
+          cancel()
+        }
+      });
+    })
   }
   closeEdit(event){
     this.isEditOpen=false;

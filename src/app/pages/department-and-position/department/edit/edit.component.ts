@@ -7,8 +7,10 @@ import { Component, OnInit,Output,EventEmitter,Input } from '@angular/core';
 export class EditComponent implements OnInit {
   @Output() close=new EventEmitter();
   @Input() Data:any={};
+  public userList:Array<any>;
+  public userSelect:any;
   constructor() { }
-
+  
   ngOnInit() {
   }
   closeEvent(event){

@@ -59,7 +59,15 @@
         },
         "pannle":{
             "edit":"编辑",
-            "add":"新增"
+            "add":"新增",
+            "departmentName":"部门名称",
+            "leader":"Leader"
+        },
+        "warning":{
+            "title":"警告",
+            "content":"确认是否删除？",
+            "deleteTree":"该部门包含子部门，继续将连同子部门全部删除，是否继续？",
+            "okText":"确定"
         }
     },
     "form":{
@@ -77,7 +85,8 @@
             "success":"成功",
             "add":"添加",
             "edit":"修改",
-            "failed":"失败"
+            "failed":"失败",
+            "delete":"删除"
         },
         "button":{
             "edit":"编辑",

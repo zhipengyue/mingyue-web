@@ -58,7 +58,15 @@
         },
         "pannle":{
             "edit":"Edit",
-            "add":"Add"
+            "add":"Add",
+            "departmentName":"Department Name",
+            "leader":"Leader"
+        },
+        "warning":{
+            "title":"Warning",
+            "content":"Are you sure to delete？",
+            "deleteTree":"The department contains sub-departments, continue to be deleted together with the sub-department, whether to continue?",
+            "okText":"Comfirm"
         }
     },
     "form":{
@@ -73,7 +81,8 @@
             "success":"success",
             "add":"Add",
             "edit":"Modify",
-            "failed":"Failed"
+            "failed":"Failed",
+            "delete":"Delete"
         },
         "button":{
             "edit":"Edit",
