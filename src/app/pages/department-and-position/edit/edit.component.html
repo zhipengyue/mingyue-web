@@ -8,13 +8,14 @@
     <ng-template #body>
         <div nz-row class="row">
           <div nz-col [nzSpan]="8">
-            {{'department.pannle.departmentName'|translate}}
+            <span *ngIf="Data.type==='department'">{{'department.pannle.departmentName'|translate}}</span>
+            <span *ngIf="Data.type==='position'">{{'position.pannle.positionName'|translate}}</span>
           </div>
           <div nz-col [nzSpan]="16">
-              <nz-input [(ngModel)]="Data.departmentName" [nzPlaceHolder]="'Basic usage'"></nz-input>
+              <nz-input [(ngModel)]="Data[Data.type+'Name']" [nzPlaceHolder]="'Basic usage'"></nz-input>
           </div>
         </div>
-        <div nz-row class="row">
+        <div nz-row class="row" *ngIf="Data.type==='department'">
             <div nz-col [nzSpan]="8">
               {{'department.pannle.leader'|translate}}
             </div>

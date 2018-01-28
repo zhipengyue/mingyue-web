@@ -70,6 +70,23 @@
             "okText":"确定"
         }
     },
+    "position":{
+        "title":"职位管理",
+        "button":{
+            "add":"新增职位"
+        },
+        "pannle":{
+            "edit":"编辑",
+            "add":"新增",
+            "positionName":"职位名称"
+        },
+        "warning":{
+            "title":"警告",
+            "content":"确认是否删除？",
+            "deleteTree":"该职位包含下属职位，继续将连同下属职位全部删除，是否继续？",
+            "okText":"确定"
+        }
+    },
     "form":{
         "name_tip":"请输入姓名",
         "mobile_tip":"请输入手机号",

@@ -69,6 +69,23 @@
             "okText":"Comfirm"
         }
     },
+    "position":{
+        "title":"position management",
+        "button":{
+            "add":"Add"
+        },
+        "pannle":{
+            "edit":"Edit",
+            "add":"Add",
+            "positionName":"Position Name"
+        },
+        "warning":{
+            "title":"Warning",
+            "content":"Are you sure to delete?",
+            "deleteTree":"The position contains sub-positions,continue to be deleted together with the sub-positions,whether to continue?",
+            "okText":"Comfirm"
+        }
+    },
     "form":{
         "name":"name",
         "mobile":"mobile number",

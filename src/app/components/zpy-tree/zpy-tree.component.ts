@@ -7,10 +7,18 @@ import { Component, OnInit,Input,Output,ViewEncapsulation,EventEmitter } from '@
   encapsulation:ViewEncapsulation.None
 })
 export class ZpyTreeComponent implements OnInit {
-  @Input() DATA:any;
+  public _DATA:any;
+  @Input() public set DATA(val){
+    this._DATA=val;
+  };
+  public get DATA(){
+    return this._DATA;
+  }
   @Output() onEdit=new EventEmitter();
   @Output() onAdd=new EventEmitter();
   @Output() onDelete=new EventEmitter();
+  @Input() Key:string='';
+  @Input() Type:string='';
   constructor() { }
 
   ngOnInit() {

@@ -2,44 +2,25 @@ import { Component, OnInit,ViewEncapsulation} from '@angular/core';
 import { MultiSearchComponent } from '../../../components/multi-search/multi-search.component'
 // import { ZpyTreeComponent } from '../../../components/zpy-tree/zpy-tree.component'
 import { TranslateService } from '@ngx-translate/core';
-import {EditComponent} from '../edit/edit.component'
+// import {PositionEditComponent} from './position-edit/position.edit.component'
+import { EditComponent} from '../edit/edit.component'
 import { NzModalService,NzMessageService } from 'ng-zorro-antd';
 import { DepartmentAndPositionService } from '../department-and-position.service'
 @Component({
-  selector: 'app-department',
-  templateUrl: './department.component.html',
-  styleUrls: ['./department.component.scss'],
+  selector: 'app-position',
+  templateUrl: './position.component.html',
+  styleUrls: ['./position.component.scss'],
   encapsulation:ViewEncapsulation.None
 })
-export class DepartmentComponent implements OnInit {
+export class PositionComponent implements OnInit {
   public zpyData:any={};
-  public departmentsData:any=[
-    // {
-    //   name:'技术部',children:[
-    //     {name:'开发部',children:[
-    //       {name:'前端组',children:[]},
-    //       {name:'后端组',children:[]}
-    //     ]},
-    //     {name:'测试部',children:[
-    //       {name:'python'},
-    //       {name:'nodejs'}
-    //     ]},
-    //     {name:'运维',children:[]},
-    //     {name:'IT',children:[]}
-    //   ]
-    // },
-    // {
-    //   name:'运营',children:[
-    //     {name:'推广',children:[]},
-    //     {name:'编辑',children:[]}
-    //   ]
-    // }
+  public positionsData:any=[
   ]
   public isEditOpen:boolean=false;
   constructor(
     public translate:TranslateService,
     private confirmServ:NzModalService,
-    private departmentService:DepartmentAndPositionService,
+    private positionService:DepartmentAndPositionService,
     private messageService:NzMessageService
   ) { }
 
@@ -47,26 +28,27 @@ export class DepartmentComponent implements OnInit {
     this.getList();
   }
   getList(){
-    this.departmentService.departmentsGetAll().then((res)=>{
+    this.positionService.positionsGetAll().then((res)=>{
       if (res.status === 200) {
-        // this.departmentsData=res.data;
-        this.departmentsData=this.departmentService.ArrayToTreeData(res.data,'departmentId')
-        console.log(this.departmentsData)
+        this.positionsData=this.positionService.ArrayToTreeData(res.data,'positionId')
+        console.log(res.data,this.positionsData)
       }
     })
   }
   treeEdit(event){
+    console.log(event);
+
     this.isEditOpen=true;
     this.zpyData={
-      type:'department',
-      title:this.translate.instant('department.pannle.edit'),
-      departmentName:event.item.departmentName,
+      type:'position',
+      title:this.translate.instant('position.pannle.edit'),
+      positionName:event.item.positionName,
       director:'',
       submit:()=>{
-        if(this.zpyData.departmentName!==''){
+        if(this.zpyData.positionName!==''){
           let item=event.item;
-          item.departmentName=this.zpyData.departmentName;
-          this.departmentService.departmentEdit(item).then((res)=>{
+          item.positionName=this.zpyData.positionName;
+          this.positionService.positionEdit(item).then((res)=>{
             if(res.status===200){
               this.messageService.create('success', this.translate.instant('public.message.add')+this.translate.instant('public.message.success'));
               this.getList();
@@ -82,13 +64,14 @@ export class DepartmentComponent implements OnInit {
   addRoot(event){
     this.isEditOpen=true;
     this.zpyData={
-      type:'department',
-      title:this.translate.instant('department.pannle.add'),
-      departmentName:'',
+      type:'position',
+      title:this.translate.instant('position.pannle.add'),
+      positionName:'',
       director:'',
       submit:()=>{
-        if(this.zpyData.departmentName!==''){
-          this.departmentService.departmentAdd({departmentName:this.zpyData.departmentName}).then((res)=>{
+        console.log(this.zpyData)
+        if(this.zpyData.positionName!==''){
+          this.positionService.positionAdd({positionName:this.zpyData.positionName}).then((res)=>{
             if(res.status===200){
               this.messageService.create('success', this.translate.instant('public.message.add')+this.translate.instant('public.message.success'));
               this.getList();
@@ -100,18 +83,19 @@ export class DepartmentComponent implements OnInit {
         this.closeEdit(null);
       }
     }
+    console.log(this.zpyData)
   }
   treeAdd(event){
     this.isEditOpen=true;
     this.zpyData={
-      type:'department',
-      title:this.translate.instant('department.pannle.add'),
-      departmentName:'',
+      type:'position',
+      title:this.translate.instant('position.pannle.add'),
+      positionName:'',
       director:'',
       submit:()=>{
-        if(this.zpyData.departmentName!==''){
+        if(this.zpyData.positionName!==''){
           console.log(event)
-          this.departmentService.departmentAdd({parentId:event.item.departmentId,departmentName:this.zpyData.departmentName}).then((res)=>{
+          this.positionService.positionAdd({parentId:event.item.positionId,positionName:this.zpyData.positionName}).then((res)=>{
             if(res.status===200){
               this.messageService.create('success', this.translate.instant('public.message.add')+this.translate.instant('public.message.success'));
               this.getList();
@@ -127,12 +111,12 @@ export class DepartmentComponent implements OnInit {
   treeDelete(event){
     let that=this;
     this.confirmServ.confirm({
-      title: this.translate.instant('department.warning.title'),
-      content:this.translate.instant('department.warning.content'),
-      okText: this.translate.instant('department.warning.okText'),
+      title: this.translate.instant('position.warning.title'),
+      content:this.translate.instant('position.warning.content'),
+      okText: this.translate.instant('position.warning.okText'),
       onOk() {
         console.log(event)
-        // this.departmentService.departmentDelete()
+        // this.positionService.departmentDelete()
         let item=event.item;
         if(item.children&&item.children.length>0){
           that.isOrNotDeleteTree(event).then(res=>{
@@ -147,7 +131,7 @@ export class DepartmentComponent implements OnInit {
   ItemDelete(item){
     let children=this.treeToArray(item)
     console.log(children)
-    this.departmentService.departmentDelete(children).then(res=>{
+    this.positionService.positionDelete(children).then(res=>{
       if(res.status===200){
         this.messageService.create('success', this.translate.instant('public.message.delete')+this.translate.instant('public.message.success'));
         this.getList();
@@ -170,9 +154,9 @@ export class DepartmentComponent implements OnInit {
   isOrNotDeleteTree(event){
     return new Promise((sure,cancel)=>{
       this.confirmServ.confirm({
-        title: this.translate.instant('department.warning.title'),
-        content:this.translate.instant('department.warning.deleteTree'),
-        okText: this.translate.instant('department.warning.okText'),
+        title: this.translate.instant('position.warning.title'),
+        content:this.translate.instant('position.warning.deleteTree'),
+        okText: this.translate.instant('position.warning.okText'),
         onOk() {
           sure();
         },

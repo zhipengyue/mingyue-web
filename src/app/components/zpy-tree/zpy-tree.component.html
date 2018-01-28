@@ -4,8 +4,9 @@
     <div class="item" [ngClass]="{'item-first':(i==0),'item-last':(i==DATA.length-1),'item-open':item.open&&item.children&&item.children.length>0}">
       <i class="anticon anticon-right" *ngIf="!(item.open&&item.children&&item.children.length>0&&item.open)"  (click)="item.open=!item.open"></i>
       <i class="anticon anticon-down" *ngIf="item.open&&item.children&&item.children.length>0&&item.open"  (click)="item.open=!item.open"></i>
-      {{item.departmentName}} 
-      <span style="margin-left:30px;">负责人:张军/员工数量:100</span>
+      {{item[Key]}} 
+      <span style="margin-left:30px;" *ngIf="Type==='department'">负责人:张军/员工数量:100</span>
+      <span style="margin-left:30px;" *ngIf="Type==='position'">数量:100</span>
       <div class="btngroup">
           <button nz-button [nzType]="'dashed'" [nzSize]="'small'" (click)="edit($event,DATA,item)">
               <i class="anticon anticon-edit"></i>
@@ -25,7 +26,7 @@
 
       </div>
     </div>
-    <app-zpy-tree *ngIf="item.children&&item.children.length>0&&item.open" [DATA]="item.children" (onEdit)="treeEdit($event)" (onAdd)="treeAdd($event)" (onDelete)="treeDelete($event)"></app-zpy-tree>
+    <app-zpy-tree [Type]="Type" [Key]="Key" *ngIf="item.children&&item.children.length>0&&item.open" [DATA]="item.children" (onEdit)="treeEdit($event)" (onAdd)="treeAdd($event)" (onDelete)="treeDelete($event)"></app-zpy-tree>
   </li>
 </ul>
 </div>

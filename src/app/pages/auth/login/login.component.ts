@@ -57,10 +57,18 @@ export class LoginComponent implements OnInit {
       delete data.remember;
       //staff-manage
       this.authService.login(data).then(res=>{
+        let token=res.headers.get('token');
         if(res.status===200){
           this.messageService.create('success', `登录成功`);
           this.router.navigate(['pages/staff-manage/staff']);
-          this.setCookie(res)
+          let body=JSON.parse(res._body)
+          let user=body.user;
+          let cookieData={
+            token:token,
+            user:user
+          }
+          console.log(cookieData)
+          this.setCookie(cookieData)
         }
       },error=>{
         this.messageService.create('error', `账号或密码错误`);
@@ -73,9 +81,9 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-  setCookie(res){
+  setCookie(data){
     //console.log(res.headers.get('content-length'))
-    cookie.setCookie('MINGYUE_USER',JSON.stringify(res),0.5)
+    cookie.setCookie('MINGYUE_USER',JSON.stringify(data),24)
   }
 
 }

@@ -29,6 +29,10 @@ export class LayoutComponent implements OnInit {
         {
           name: '部门管理',
           link: '/pages/department-position/department'
+        },
+        {
+          name: '职位管理',
+          link: '/pages/department-position/position'
         }
       ]
     }

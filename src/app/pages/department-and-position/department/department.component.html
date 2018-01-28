@@ -14,7 +14,7 @@
           </ng-template>
           <ng-template #body>
             <!-- <app-zpy-table [DataSource]="tableParams"></app-zpy-table> -->
-            <app-zpy-tree [DATA]="departmentsData" (onEdit)="treeEdit($event)" (onAdd)="treeAdd($event)" (onDelete)="treeDelete($event)"></app-zpy-tree>
+            <app-zpy-tree [Type]="'department'" [DATA]="departmentsData" [Key]="'departmentName'" (onEdit)="treeEdit($event)" (onAdd)="treeAdd($event)" (onDelete)="treeDelete($event)"></app-zpy-tree>
           </ng-template>
         </nz-card>
       </div>

@@ -7,13 +7,18 @@ import { DepartmentAndPositionService } from './department-and-position.service'
 import { DepartmentComponent } from './department/department.component';
 import { ComponentsModule} from '../../components/components.module';
 import { AppTranslationModule } from '../../app.translate.module';
-import { EditComponent } from './department/edit/edit.component';
+import { EditComponent } from './edit/edit.component';
 import {NzMessageService} from 'ng-zorro-antd';
+import { PositionComponent } from './position/position.component';
 
 const ROUTES: Routes = [
 	{
 		path:'department',
 		component:DepartmentComponent
+  },
+  {
+    path:'position',
+    component:PositionComponent
   }
 ];
 
@@ -29,6 +34,6 @@ const ROUTES: Routes = [
     AppTranslationModule
   ],
   providers:[DepartmentAndPositionService,NzMessageService],
-  declarations: [DepartmentComponent, EditComponent]
+  declarations: [DepartmentComponent,EditComponent,PositionComponent]
 })
 export class DepartmentAndPositionModule { }

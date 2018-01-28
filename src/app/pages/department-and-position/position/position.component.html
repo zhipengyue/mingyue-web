@@ -1,0 +1,23 @@
+<div>
+  
+  <div nz-row [nzGutter]="24" class="pannle-body">
+   <div nz-col [nzSpan]="24">
+      <nz-card [nzLoading]="loading">
+        <ng-template #title>
+            {{'position.title'|translate}}
+        </ng-template>
+        <ng-template #extra>
+          <button nz-button [nzType]="'primary'" (click)="addRoot($event)">
+              <i class="anticon anticon-plus-circle-o"></i>
+              <span>{{'position.button.add'|translate}}</span>
+          </button>
+        </ng-template>
+        <ng-template #body>
+          <!-- <app-zpy-table [DataSource]="tableParams"></app-zpy-table> -->
+          <app-zpy-tree [Type]="'position'" [Key]="'positionName'" [DATA]="positionsData" (onEdit)="treeEdit($event)" (onAdd)="treeAdd($event)" (onDelete)="treeDelete($event)"></app-zpy-tree>
+        </ng-template>
+      </nz-card>
+    </div>
+  </div>
+</div>
+<app-edit *ngIf="isEditOpen" [Data]="zpyData" (close)="closeEdit($event)"></app-edit>
