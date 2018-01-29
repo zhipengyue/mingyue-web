@@ -67,11 +67,13 @@ export class LoginComponent implements OnInit {
             token:token,
             user:user
           }
-          console.log(cookieData)
           this.setCookie(cookieData)
         }
       },error=>{
-        this.messageService.create('error', `账号或密码错误`);
+        this.messageService.create('error',error.message);
+        if(error.message==='账户未激活'){
+          this.router.navigate(['auth/register']);
+        }
       })
     }else{
       

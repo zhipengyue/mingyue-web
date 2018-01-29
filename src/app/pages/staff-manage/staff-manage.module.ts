@@ -4,7 +4,7 @@ import { StaffComponent } from './staff/staff.component';
 import { FormerComponent } from './former/former.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { Routes, RouterModule } from '@angular/router';
-import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { NgZorroAntdModule,NzMessageService,NzModalService} from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule} from '../../components/components.module';
 import { AppTranslationModule } from '../../app.translate.module';
@@ -40,6 +40,6 @@ const ROUTES: Routes = [
     AppTranslationModule
   ],
   declarations: [StaffComponent, FormerComponent, ContactsComponent, AddStaffComponent],
-  providers:[StaffManageService]
+  providers:[StaffManageService,NzMessageService,NzModalService]
 })
 export class StaffManageModule { }

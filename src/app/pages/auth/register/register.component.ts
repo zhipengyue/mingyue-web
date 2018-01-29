@@ -36,10 +36,10 @@ export class RegisterComponent implements OnInit {
         email            : [ null, [ Validators.email ] ],
         password         : [ null, [ Validators.required ] ],
         checkPassword    : [ null, [ Validators.required, this.confirmationValidator ] ],
-        userName         : [ null, [ Validators.required ] ],
-        phoneNumberPrefix: [ '+86' ],
-        phoneNumber      : [ null, [ Validators.required ] ],
-        captcha          : [ null, [ Validators.required ] ],
+        // userName         : [ null, [ Validators.required ] ],
+        // phoneNumberPrefix: [ '+86' ],
+        // phoneNumber      : [ null, [ Validators.required ] ],
+        // captcha          : [ null, [ Validators.required ] ],
         //agree            : [ false,[ Validators.required ] ]
       });
       this.getCaptcha(null);
@@ -53,33 +53,42 @@ export class RegisterComponent implements OnInit {
         invalide=true
       }
     }
-    let validataMd5=md5(this.validateForm.value.captcha,this.authService.getMd5Key());
-    if(validataMd5===this.captcha['token']){
-      let data= {token:this.captcha['token']};
-      Object.assign(data,this.validateForm.value);
-      Object.assign(data,{'agree':this.agree});
-      if(!invalide){
-        this.authService.regist(data).then(res=>{
-          this.messageService.create('success', `注册成功`);
-          this.router.navigate(['auth/login']);
-        },error=>{
-          this.confirmServ.error({
-            title: '错误',//'这是一条失败信息',
-            content: error.message||error.statusText//'一些附加信息一些附加信息一些附加信息'
-          });
-        })
-        // this.router.navigate(['auth/login']);
-      }else{
+    // let validataMd5=md5(this.validateForm.value.captcha,this.authService.getMd5Key());
+    // if(validataMd5===this.captcha['token']){
+    //   let data= {token:this.captcha['token']};
+    //   Object.assign(data,this.validateForm.value);
+    //    Object.assign(data,{'agree':this.agree});
+    //   if(!invalide){
+    //     this.authService.regist(data).then(res=>{
+    //       this.messageService.create('success', `注册成功`);
+    //       this.router.navigate(['auth/login']);
+    //     },error=>{
+    //       this.confirmServ.error({
+    //         title: '错误',//'这是一条失败信息',
+    //         content: error.message||error.statusText//'一些附加信息一些附加信息一些附加信息'
+    //       });
+    //     })
+    //     // this.router.navigate(['auth/login']);
+    //   }else{
         
-        this.confirmServ.error({
-          title: this.translate.instant('login.invalid.modal.title'),//'这是一条失败信息',
-          content: this.translate.instant('login.invalid.modal.content')//'一些附加信息一些附加信息一些附加信息'
-        });
-      }
-    }else{
-      this.getCaptcha(null);
-    }
-    
+    //     this.confirmServ.error({
+    //       title: this.translate.instant('login.invalid.modal.title'),//'这是一条失败信息',
+    //       content: this.translate.instant('login.invalid.modal.content')//'一些附加信息一些附加信息一些附加信息'
+    //     });
+    //   }
+    // }else{
+    //   this.getCaptcha(null);
+    // }
+    if(!invalide){
+    this.authService.regist(this.validateForm.value).then(res=>{
+      this.messageService.create('success', `注册成功`);
+      this.router.navigate(['auth/login']);
+    },error=>{
+      this.confirmServ.error({
+        title: '错误',//'这是一条失败信息',
+        content: error.message||error.statusText//'一些附加信息一些附加信息一些附加信息'
+      });
+    })
     
   }
 

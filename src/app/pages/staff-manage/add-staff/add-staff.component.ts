@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { TranslateService } from '@ngx-translate/core';
+import { NzModalService,NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-add-staff',
   templateUrl: './add-staff.component.html',
@@ -24,10 +25,13 @@ export class AddStaffComponent implements OnInit {
   public departments:any=[]
   public positions:any=[]
   public headImg:string=''
+  public fullheadImg:string=''
   constructor(
     private fb: FormBuilder,
     public translate:TranslateService,
-    private staffService:StaffManageService
+    private staffService:StaffManageService,
+    private confirmServ:NzModalService,
+    private messageService:NzMessageService
   ) {
     this.validateForm = this.fb.group({
       avatar              : [this.headImg],
@@ -35,8 +39,8 @@ export class AddStaffComponent implements OnInit {
       // account             : [ '', [ Validators.required ], [ this.userNameAsyncValidator ] ],
       gender              : [ 1 ],
       email               : [ '', [ this.emailValidator ] ],
-      mobile               : [ '' ],
-      emergencyContacterMobile: [ '' ],
+      phoneNumber               : [ '' ],
+      emergencyContacterPhoneNumber: [''],
       departmentId: [ '' ],
       positionId: [ '' ],
       birthDay            : [ '', [ this.birthDayValidator ] ],
@@ -80,13 +84,13 @@ export class AddStaffComponent implements OnInit {
       /**
        * jpg png
        */
-      console.log('jpg png')
+      this.messageService.create('error','仅支持jpg、png格式的图片');
       return;
     }else if (file.size > 200 * 1024) {
       /**
        * <200Kb
        */
-      console.log('< 200k')
+      this.messageService.create('error','图片最大不得超过200k');
       return;
     };
 
@@ -100,7 +104,9 @@ export class AddStaffComponent implements OnInit {
     formData.append('fileMimeType', file.type);
     this.staffService.uploadImage(formData).then(res=>{
       if(res.status===200){
-        this.headImg=this.staffService.path+res._body;
+        this.headImg=res._body;
+        this.fullheadImg=this.staffService.path+this.headImg;
+        this.messageService.create('success', this.translate.instant('public.message.upload')+this.translate.instant('public.message.success'));
       }
     },err=>{
       console.log(err)
@@ -115,9 +121,12 @@ export class AddStaffComponent implements OnInit {
     // }
     if(this.validateForm.valid){
       this.staffService.addStaffInfo(this.validateForm.value).then((res)=>{
-        console.log(res)
+        if(res.status===200){
+          this.messageService.create('success', this.translate.instant('public.message.add')+this.translate.instant('public.message.success'));
+          
+        }
       },err=>{
-        console.log(err)
+        this.messageService.create('error',err.message);
       })
     }
   };

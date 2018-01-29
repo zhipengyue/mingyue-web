@@ -15,7 +15,7 @@
         "loginbtn":"登录"
     },
     "regist":{
-        "title": "注册",
+        "title": "账户激活",
         "email":"邮箱",
         "password":"密码",
         "confirm_password":"确认密码",
@@ -103,7 +103,8 @@
             "add":"添加",
             "edit":"修改",
             "failed":"失败",
-            "delete":"删除"
+            "delete":"删除",
+            "upload":"上传"
         },
         "button":{
             "edit":"编辑",

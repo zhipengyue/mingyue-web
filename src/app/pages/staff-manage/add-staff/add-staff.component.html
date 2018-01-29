@@ -37,7 +37,7 @@
                     <label nz-form-item-required>{{'staff.addStaff.avatar'|translate}}</label>
                   </div>
                   <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-                    <img class="avatar" src="{{headImg||'/assets/images/kaola.jpg'}}" width="100%" alt="" >
+                    <img class="avatar" src="{{fullheadImg||'/assets/images/kaola.jpg'}}" width="100%" alt="" >
                     <!-- <button class="uploadBtn" nz-button [nzType]="'dashed'" [nzSize]="size" (click)="uploadClick($event,uploaderFileInput)">
                       <i class="anticon anticon-upload"></i><span>Upload</span>
                     </button> -->
@@ -113,10 +113,10 @@
                     <label nz-form-item-required>{{'staff.addStaff.mobile'|translate}}</label>
                   </div>
                   <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-                    <nz-input formControlName="mobile" [nzPlaceHolder]="'mobile'" [nzType]="'text'" [nzSize]="'large'">
+                    <nz-input formControlName="phoneNumber" [nzPlaceHolder]="'mobile'" [nzType]="'text'" [nzSize]="'large'">
                     </nz-input>
-                    <div nz-form-explain *ngIf="getFormControl('email').dirty&&getFormControl('email').hasError('email')">The input is not valid E-mail!</div>
-                    <div nz-form-explain *ngIf="getFormControl('email').dirty&&getFormControl('email').hasError('required')">Please input your E-mail!</div>
+                    <div nz-form-explain *ngIf="getFormControl('phoneNumber').dirty&&getFormControl('phoneNumber').hasError('number')">The input is not valid E-mail!</div>
+                    <div nz-form-explain *ngIf="getFormControl('phoneNumber').dirty&&getFormControl('phoneNumber').hasError('required')">Please input your E-mail!</div>
                   </div>
                 </div>
               <!--紧急联系人-->
@@ -125,7 +125,7 @@
                     <label nz-form-item-required>{{'staff.addStaff.emergencyContacterMobile'|translate}}</label>
                   </div>
                   <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-                    <nz-input formControlName="emergencyContacterMobile" [nzType]="'text'" [nzSize]="'large'">
+                    <nz-input formControlName="emergencyContacterPhoneNumber" [nzType]="'text'" [nzSize]="'large'">
                     </nz-input>
                   </div>
                 </div>

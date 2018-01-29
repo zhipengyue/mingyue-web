@@ -99,7 +99,8 @@
             "add":"Add",
             "edit":"Modify",
             "failed":"Failed",
-            "delete":"Delete"
+            "delete":"Delete",
+            "upload":"upload"
         },
         "button":{
             "edit":"Edit",
