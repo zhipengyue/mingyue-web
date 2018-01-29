@@ -37,12 +37,12 @@ export class AddStaffComponent implements OnInit {
       email               : [ '', [ this.emailValidator ] ],
       mobile               : [ '' ],
       emergencyContacterMobile: [ '' ],
-      department: [ '' ],
-      position: [ '' ],
+      departmentId: [ '' ],
+      positionId: [ '' ],
       birthDay            : [ '', [ this.birthDayValidator ] ],
-      password            : [ '', [ Validators.required ] ],
-      passwordConfirmation: [ '', [ this.passwordConfirmationValidator ] ],
-      comment             : [ '', [ Validators.required ] ]
+      //password            : [ '', [ Validators.required ] ],
+      //passwordConfirmation: [ '', [ this.passwordConfirmationValidator ] ],
+      //comment             : [ '', [ Validators.required ] ]
     });
   }
 
@@ -109,10 +109,17 @@ export class AddStaffComponent implements OnInit {
   validateForm: FormGroup;
   submitForm = ($event, value) => {
     $event.preventDefault();
-    for (const key in this.validateForm.controls) {
-      this.validateForm.controls[ key ].markAsDirty();
+    // for (const key in this.validateForm.controls) {
+    //   this.validateForm.controls[ key ].markAsDirty();
+    //   console.log(this.validateForm.controls[ key ].valid)
+    // }
+    if(this.validateForm.valid){
+      this.staffService.addStaffInfo(this.validateForm.value).then((res)=>{
+        console.log(res)
+      },err=>{
+        console.log(err)
+      })
     }
-    console.log(value);
   };
 
   resetForm($event: MouseEvent) {

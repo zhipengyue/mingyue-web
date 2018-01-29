@@ -17,4 +17,7 @@ export class StaffManageService extends RequestService {
   uploadImage(data){
     return this.jsonCall(data,this.path+"upload/image",'post')
   }
+  addStaffInfo(data){
+    return this.jsonCall(data,this.path+'server/staff/create','post')
+  }
 }
