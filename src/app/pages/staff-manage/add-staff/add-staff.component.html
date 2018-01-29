@@ -37,11 +37,17 @@
                     <label nz-form-item-required>{{'staff.addStaff.avatar'|translate}}</label>
                   </div>
                   <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-                    <nz-input formControlName="avatar" [nzType]="'text'" [nzSize]="'large'">
+                    <img class="avatar" src="{{headImg||'/assets/images/kaola.jpg'}}" width="100%" alt="" >
+                    <!-- <button class="uploadBtn" nz-button [nzType]="'dashed'" [nzSize]="size" (click)="uploadClick($event,uploaderFileInput)">
+                      <i class="anticon anticon-upload"></i><span>Upload</span>
+                    </button> -->
+                    <div class="uploadBtn" (click)="uploadClick($event,uploaderFileInput)"><i class="anticon anticon-upload"></i><span>Upload</span></div>
+                    <input #uploaderFileInput class="uploadfile hidden" type="file" (change)="uploadChangeImage($event)">
+                    <!-- <nz-input formControlName="avatar" [nzType]="'text'" [nzSize]="'large'">
                     </nz-input>
                     <div nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').hasError('required')">Please input english words!</div>
                     <div nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').hasError('duplicated')">The username is redundant!</div>
-                    <div nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').pending">Validating...</div>
+                    <div nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').pending">Validating...</div> -->
                   </div>
                 </div>
 
@@ -59,7 +65,7 @@
                 </div>
               </div>
               <!--账号-->
-              <div nz-form-item nz-row>
+              <!-- <div nz-form-item nz-row>
                 <div nz-form-label nz-col [nzSpan]="7">
                   <label nz-form-item-required>{{'staff.addStaff.account'|translate}}</label>
                 </div>
@@ -70,7 +76,7 @@
                   <div nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').hasError('duplicated')">The username is redundant!</div>
                   <div nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').pending">Validating...</div>
                 </div>
-              </div>
+              </div> -->
 
               <!--性别-->
               <div nz-form-item nz-row>
@@ -143,13 +149,13 @@
                   <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
                       <nz-select
                       nzAllowClear
-                      [nzPlaceHolder]="'Select a person'"
+                      [nzPlaceHolder]="'Select department'"
                       formControlName="department"
                       nzShowSearch>
                       <nz-option
-                        *ngFor="let option of departmentOptions"
-                        [nzLabel]="option.label"
-                        [nzValue]="option.value"
+                        *ngFor="let option of departments"
+                        [nzLabel]="option.departmentName"
+                        [nzValue]="option.departmentId"
                         [nzDisabled]="option.disabled">
                       </nz-option>
                     </nz-select>
@@ -165,13 +171,13 @@
                     <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
                         <nz-select
                         nzAllowClear
-                        [nzPlaceHolder]="'Select a person'"
+                        [nzPlaceHolder]="'Select position'"
                         formControlName="position"
                         nzShowSearch>
                         <nz-option
-                          *ngFor="let option of departmentOptions"
-                          [nzLabel]="option.label"
-                          [nzValue]="option.value"
+                          *ngFor="let option of positions"
+                          [nzLabel]="option.positionName"
+                          [nzValue]="option.positionId"
                           [nzDisabled]="option.disabled">
                         </nz-option>
                       </nz-select>

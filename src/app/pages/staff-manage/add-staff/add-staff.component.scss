@@ -1,0 +1,20 @@
+.avatar{
+    width:100px;
+    height: 100px;
+    overflow: hidden;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    display: block;
+}
+.uploadBtn{
+    width: 100px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.uploadfile.hidden{
+    display: none!important;
+}

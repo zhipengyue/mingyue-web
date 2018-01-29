@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule} from '../../components/components.module';
 import { AppTranslationModule } from '../../app.translate.module';
 import { AddStaffComponent } from './add-staff/add-staff.component';
+import { StaffManageService } from './staff-manage.service'
 const ROUTES: Routes = [
 	{
 		path:'staff',
@@ -38,6 +39,7 @@ const ROUTES: Routes = [
     ComponentsModule,
     AppTranslationModule
   ],
-  declarations: [StaffComponent, FormerComponent, ContactsComponent, AddStaffComponent]
+  declarations: [StaffComponent, FormerComponent, ContactsComponent, AddStaffComponent],
+  providers:[StaffManageService]
 })
 export class StaffManageModule { }
