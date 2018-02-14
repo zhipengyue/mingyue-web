@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +8,7 @@ import {
 import { NzModalService } from 'ng-zorro-antd';
 import {NzMessageService} from 'ng-zorro-antd';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router'
+import { Router ,ActivatedRoute, Params} from '@angular/router'
 import { AuthService } from '../auth.service'
 import md5 from 'blueimp-md5';
 @Component({
@@ -19,7 +19,7 @@ import md5 from 'blueimp-md5';
 export class RegisterComponent implements OnInit {
   private validateForm: FormGroup;
   private captcha={}
-  public agree:boolean;
+  // public agree:boolean;
     //public translate:TranslateService
     constructor(
       private fb:FormBuilder,
@@ -27,22 +27,38 @@ export class RegisterComponent implements OnInit {
       private translate:TranslateService,
       private router:Router,
       private authService:AuthService,
-      private messageService:NzMessageService
+      private messageService:NzMessageService,
+      private activatedRoute: ActivatedRoute
     ) { 
     }
   
     ngOnInit() {
+      let email="";
       this.validateForm = this.fb.group({
-        email            : [ null, [ Validators.email ] ],
-        password         : [ null, [ Validators.required ] ],
-        checkPassword    : [ null, [ Validators.required, this.confirmationValidator ] ],
-        // userName         : [ null, [ Validators.required ] ],
-        // phoneNumberPrefix: [ '+86' ],
-        // phoneNumber      : [ null, [ Validators.required ] ],
-        // captcha          : [ null, [ Validators.required ] ],
-        //agree            : [ false,[ Validators.required ] ]
+        email            : [ email, [ Validators.email ] ],
+        password         : [ null, [ Validators.required, this.isNotSimple] ],
+        checkPassword    : [ null, [ Validators.required, this.confirmationValidator ] ]
       });
-      this.getCaptcha(null);
+      // this.getCaptcha(null);
+
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+      let userId = params['id'];
+      if(userId){
+        this.authService.getAccountById({userId:userId}).then(res=>{
+          email=JSON.parse(res._body).email;
+          // this.validateForm.value.email=email;
+          this.validateForm = this.fb.group({
+            email            : [ email, [ Validators.email ] ],
+            password         : [ null, [ Validators.required, this.isNotSimple] ],
+            checkPassword    : [ null, [ Validators.required, this.confirmationValidator ] ]
+          });
+
+
+        },err=>{
+          console.log(err)
+        })
+      }
+      });
     }
 
   _submitForm() {
@@ -80,16 +96,18 @@ export class RegisterComponent implements OnInit {
     //   this.getCaptcha(null);
     // }
     if(!invalide){
-    this.authService.regist(this.validateForm.value).then(res=>{
-      this.messageService.create('success', `注册成功`);
-      this.router.navigate(['auth/login']);
-    },error=>{
-      this.confirmServ.error({
-        title: '错误',//'这是一条失败信息',
-        content: error.message||error.statusText//'一些附加信息一些附加信息一些附加信息'
-      });
-    })
-    
+      let key=this.authService.getMd5Key()
+      this.validateForm.value.password=md5(this.validateForm.value.password,key);
+      this.authService.regist(this.validateForm.value).then(res=>{
+        this.messageService.create('success', `注册成功`);
+        this.router.navigate(['/']);
+      },error=>{
+        this.confirmServ.error({
+          title: '错误',//'这是一条失败信息',
+          content: error.message||error.statusText//'一些附加信息一些附加信息一些附加信息'
+        });
+      })
+    }
   }
 
   updateConfirmValidator() {
@@ -106,7 +124,15 @@ export class RegisterComponent implements OnInit {
       return { confirm: true, error: true };
     }
   };
-
+  isNotSimple= (control: FormControl): { [s: string]: boolean } => {
+    const reg1=/^[A-Z]{1,}[a-z]{1,}[0-9]{1,}/;
+    const reg2=/\w{6,20}/
+    if (!control.value) {
+      return { required: true };
+    } else if (!reg1.test(control.value)||!reg2.test(control.value)) {
+      return { valide: true, error: true };
+    } 
+  }
   getCaptcha(e: MouseEvent=null) {
     if(e) e.preventDefault();
     this.authService.getCaptcha().then(res=>{

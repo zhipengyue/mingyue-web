@@ -34,6 +34,7 @@ export class RequestService {
         options=new RequestOptions({headers:headers});
       }catch(error){
         return new Promise((resolve,reject)=>{
+          console.log(error)
           this.processCallback(resolve,reject,{status:-200,message:'登录超时，请重新登录',data:null});
         })
       }

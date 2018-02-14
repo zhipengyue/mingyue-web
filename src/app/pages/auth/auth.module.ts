@@ -27,6 +27,9 @@ const ROUTES: Routes = [
   {
 		path:'register',
 		component:RegisterComponent
+  },{
+    path:'register/:id',
+    component:RegisterComponent
   }
 ];
 

@@ -59,20 +59,25 @@ export class LoginComponent implements OnInit {
       this.authService.login(data).then(res=>{
         let token=res.headers.get('token');
         if(res.status===200){
-          this.messageService.create('success', `登录成功`);
-          this.router.navigate(['pages/staff-manage/staff']);
           let body=JSON.parse(res._body)
-          let user=body.user;
-          let cookieData={
-            token:token,
-            user:user
+          if(!(body.code&&body.code.needActive)){
+            let user=body.user;
+            let cookieData={
+              token:token,
+              user:user
+            }
+            this.setCookie(cookieData)
+            this.messageService.create('success', `登录成功`);
+            this.router.navigate(['pages/staff-manage/staff']);
+          }else{
+            this.messageService.create('success','账户未激活，请激活账户');
+            this.router.navigate(['auth/register'],{ queryParams: { id:body.userId } });
           }
-          this.setCookie(cookieData)
         }
       },error=>{
         this.messageService.create('error',error.message);
         if(error.message==='账户未激活'){
-          this.router.navigate(['auth/register']);
+          // this.router.navigate(['auth/register'],{ queryParams: { id: 1 } });
         }
       })
     }else{
